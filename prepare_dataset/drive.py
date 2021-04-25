@@ -2,9 +2,10 @@
 # Data path index (.txt) files creation for DRIVE dataset. 
 #=========================================================
 
-import os, h5py, cv2, imageio
-import numpy as np
-from PIL import Image
+import os
+#import h5py, cv2, imageio
+#import numpy as np
+#from PIL import Image
 
 def get_path_list(root_path,img_path,label_path,fov_path):
     tmp_list = [img_path,label_path,fov_path]
