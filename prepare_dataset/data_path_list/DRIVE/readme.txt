@@ -1,1 +1,1 @@
-Data path index file corresponding to drive dataset will be created here.
+Data path index file corresponding to DRIVE dataset will be created here.

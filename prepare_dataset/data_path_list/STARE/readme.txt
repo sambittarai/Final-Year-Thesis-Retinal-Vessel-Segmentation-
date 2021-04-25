@@ -1,0 +1,1 @@
+Data path index file corresponding to STARE dataset will be created here.
