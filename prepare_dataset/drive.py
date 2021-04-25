@@ -25,7 +25,7 @@ def write_path_list(name_list, save_path, file_name):
 
 if __name__ == "__main__":
     #------------Path of the dataset -------------------------
-    data_root_path = '/content/drive/MyDrive/Retinal Vessel Segmentation/Datasets'
+    data_root_path = '/content/drive/MyDrive/Retinal_Vessel_Segmentation/Datasets'
     if not os.path.exists(data_root_path): 
       raise ValueError("data path doesnot exist")
     #train
@@ -37,7 +37,7 @@ if __name__ == "__main__":
     gt_test = "DRIVE/test/1st_manual/"
     fov_test = "DRIVE/test/mask/"
     
-    save_path = "/content/drive/MyDrive/Retinal Vessel Segmentation/prepare_dataset/data_path_list/DRIVE/"
+    save_path = "/content/drive/MyDrive/Retinal_Vessel_Segmentation/prepare_dataset/data_path_list/DRIVE/"
     if not os.path.isdir(save_path):
         os.mkdir(save_path)
 
