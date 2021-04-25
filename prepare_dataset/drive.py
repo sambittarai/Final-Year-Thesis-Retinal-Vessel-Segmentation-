@@ -1,6 +1,6 @@
-"""
-Data path index (.txt) files creation for DRIVE dataset. 
-"""
+#=========================================================
+# Data path index (.txt) files creation for DRIVE dataset. 
+#=========================================================
 
 import os, h5py, cv2, imageio
 import numpy as np
