@@ -1,14 +1,13 @@
 # Final-Year-Thesis-Retinal-Vessel-Segmentation-
 
-## Requirements
+## Requirements:
 
 ```
-SimpleITK
-Python
-Pytorch
-torchvision
-cudnn
-tensorboardX
+1. python
+2. torch                  1.8
+3. torchvision
+4. cudnn
+5. tensorboardX
 ```
 
 
