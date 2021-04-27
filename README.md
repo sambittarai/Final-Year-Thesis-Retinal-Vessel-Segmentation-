@@ -3,6 +3,8 @@
 ## Requirements:
 
 ```
+Libraries               Version
+
 1. python
 2. torch                  1.8
 3. torchvision
