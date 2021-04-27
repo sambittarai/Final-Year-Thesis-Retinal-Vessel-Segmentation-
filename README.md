@@ -10,6 +10,7 @@ Libraries               Version
 3. torchvision
 4. cudnn
 5. tensorboardX
+6. argparse
 ```
 
 
