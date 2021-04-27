@@ -1,3 +1,7 @@
+#
+# All the configuration information is available here
+#
+
 import argparse
 
 def parse_args():
