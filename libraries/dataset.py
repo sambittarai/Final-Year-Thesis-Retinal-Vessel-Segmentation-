@@ -1,5 +1,5 @@
 #=====================================================
-# This is taken from pytorch dataset class
+# This is taken from the pytorch dataset class
 #=====================================================
 
 from torch.utils.data import Dataset
