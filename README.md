@@ -2,16 +2,21 @@
 This project is based on my final year thesis i.e. Retinal Vessel Segmentation using pytorch framework. This repository includes dataset preparation, data processing, training, testing, and visualization.
 
 ## Requirements:
+It is highly recommended to first try using your current python environment. However, the following environment is successfully able to run the code.
 
 ```
-Libraries               Version
+Libraries                 Version
 
-1. python
-2. torch                  1.8
-3. torchvision
-4. cudnn
-5. tensorboardX
-6. argparse
+1.  python                 >= 3.5
+2.  torch                  1.8.1
+3.  torchvision            0.9.1
+4.  cudnn
+5.  tensorboardX           2.2
+6.  argparse               1.1
+7.  pandas                 1.1.5
+8.  matplotlib             3.2.2
+9.  opencv                 4.1.2
+10. numpy                  1.19.5
 ```
 
 
