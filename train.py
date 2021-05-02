@@ -3,7 +3,6 @@ import torch.optim as optim
 from tqdm import tqdm
 import random,sys,time
 import os
-from os.path import join
 import torch
 from libraries.extract_patches import get_data_train
 from libraries.losses.loss import *
@@ -39,12 +38,14 @@ def get_dataloader(args):
     val_set = TrainDataset(patches_imgs_train[val_ind,...],patches_masks_train[val_ind,...],mode="val")
     val_loader = DataLoader(val_set, batch_size=args.batch_size,
                             shuffle=False, num_workers=6)
+    
     # Save some samples of feeding to the neural network
-    N_sample = min(patches_imgs_train.shape[0], 50)
-    save_img(group_images((patches_imgs_train[0:N_sample, :, :, :]*255).astype(np.uint8), 10),
-              join(args.outf, args.save, "sample_input_imgs.png"))
-    save_img(group_images((patches_masks_train[0:N_sample, :, :, :]*255).astype(np.uint8), 10),
-              join(args.outf, args.save,"sample_input_masks.png"))
+    #N_sample = min(patches_imgs_train.shape[0], 50)
+    #save_img(group_images((patches_imgs_train[0:N_sample, :, :, :]*255).astype(np.uint8), 10),
+    #          os.path.join(args.outf, args.save, "sample_input_imgs.png"))
+    #save_img(group_images((patches_masks_train[0:N_sample, :, :, :]*255).astype(np.uint8), 10),
+    #          os.path.join(args.outf, args.save,"sample_input_masks.png"))
+    
     return train_loader,val_loader
 
 # train 
@@ -63,6 +64,7 @@ def train(train_loader,net,criterion,optimizer,device):
 
         train_loss.update(loss.item(), inputs.size(0))
     log = OrderedDict([('train_loss',train_loss.avg)])
+    
     return log
 
 # val 
@@ -89,8 +91,7 @@ def val(val_loader,net,criterion,device):
 def main():
     setpu_seed(2021)
     args = parse_args()
-    save_path = join(args.outf, args.save)
-    save_args(args,save_path)
+    save_path = os.path.join(args.outf, args.save)
 
     device = torch.device("cuda" if torch.cuda.is_available() and args.cuda else "cpu")
     cudnn.benchmark = True
