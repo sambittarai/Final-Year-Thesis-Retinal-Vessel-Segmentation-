@@ -15,8 +15,7 @@ from libraries.logger import Logger, Print_Logger
 from collections import OrderedDict
 from libraries.metrics import Evaluate
 import models
-#from test import Test
-
+from test import Test
 
 #  Load the data and extract patches
 def get_dataloader(args):
@@ -104,7 +103,7 @@ def main():
     net = models.LadderNet(inplanes=1, num_classes=2, layers=3, filters=16).to(device)
     print("Total number of parameters: " + str(count_parameters(net)))
 
-    log.save_graph(net,torch.randn((1,1,48,48)).to(device).to(device=device))  # Save the model structure to the tensorboard file
+    log.save_graph(net,torch.randn((1,1,64,64)).to(device).to(device=device))  # Save the model structure to the tensorboard file
     # torch.nn.init.kaiming_normal(net, mode='fan_out')      # Modify default initialization method
     # net.apply(weight_init)
 
@@ -155,11 +154,11 @@ def main():
 
         # Save checkpoint of latest and best model.
         state = {'net': net.state_dict(),'optimizer':optimizer.state_dict(),'epoch': epoch}
-        torch.save(state, join(save_path, 'latest_model.pth'))
+        torch.save(state, os.path.join(save_path, 'latest_model.pth'))
         trigger += 1
         if val_log['val_auc_roc'] > best['AUC_roc']:
             print('\033[0;33mSaving best model!\033[0m')
-            torch.save(state, join(save_path, 'best_model.pth'))
+            torch.save(state, os.path.join(save_path, 'best_model.pth'))
             best['epoch'] = epoch
             best['AUC_roc'] = val_log['val_auc_roc']
             trigger = 0
