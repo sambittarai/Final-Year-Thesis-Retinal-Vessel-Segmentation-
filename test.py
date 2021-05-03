@@ -3,20 +3,21 @@ import torch.backends.cudnn as cudnn
 from torch.utils.data import DataLoader
 import torch,sys
 from tqdm import tqdm
-
 from collections import OrderedDict
-from lib.visualize import save_img,group_images,concat_result
+from libraries.visualize import save_img,group_images,concat_result
 import os
 import argparse
-from lib.logger import Logger, Print_Logger
-from lib.extract_patches import *
-from os.path import join
-from lib.dataset import TestDataset
-from lib.metrics import Evaluate
+from libraries.logger import Logger, Print_Logger
+from libraries.extract_patches import *
+from libraries.dataset import TestDataset
+from libraries.metrics import Evaluate
+from libraries.common import setpu_seed,dict_round
+from libraries.pre_process import my_PreProc
 import models
-from lib.common import setpu_seed,dict_round
+#from models import UNetFamily
+#from models import LadderNet
+
 from config import parse_args
-from lib.pre_processing import my_PreProc
 
 setpu_seed(2021)
 
@@ -25,7 +26,7 @@ class Test():
         self.args = args
         assert (args.stride_height <= args.test_patch_height and args.stride_width <= args.test_patch_width)
         # save path
-        self.path_experiment = join(args.outf, args.save)
+        self.path_experiment = os.path.join(args.outf, args.save)
 
         self.patches_imgs_test, self.test_imgs, self.test_masks, self.test_FOVs, self.new_height, self.new_width = get_data_test_overlap(
             test_data_path_list=args.test_data_path_list,
@@ -38,7 +39,7 @@ class Test():
         self.img_width = self.test_imgs.shape[3]
 
         test_set = TestDataset(self.patches_imgs_test)
-        self.test_loader = DataLoader(test_set, batch_size=args.batch_size, shuffle=False, num_workers=3)
+        self.test_loader = DataLoader(test_set, batch_size=args.batch_size, shuffle=False, num_workers=6)
 
     # Inference prediction process
     def inference(self, net):
@@ -75,13 +76,13 @@ class Test():
         img_name_list = [item.split('/')[-1].split('.')[0] for item in img_path_list]
 
         kill_border(self.pred_imgs, self.test_FOVs) # only for visualization
-        self.save_img_path = join(self.path_experiment,'result_img')
-        if not os.path.exists(join(self.save_img_path)):
+        self.save_img_path = os.path.join(self.path_experiment,'result_img')
+        if not os.path.exists(os.path.join(self.save_img_path)):
             os.makedirs(self.save_img_path)
         # self.test_imgs = my_PreProc(self.test_imgs) # Uncomment to save the pre processed image
         for i in range(self.test_imgs.shape[0]):
             total_img = concat_result(self.test_imgs[i],self.pred_imgs[i],self.test_masks[i])
-            save_img(total_img,join(self.save_img_path, "Result_"+img_name_list[i]+'.png'))
+            save_img(total_img, os.path.join(self.save_img_path, "Result_"+img_name_list[i]+'.png'))
 
     # Val on the test set at each epoch
     def val(self):
@@ -104,7 +105,7 @@ class Test():
 
 if __name__ == '__main__':
     args = parse_args()
-    save_path = join(args.outf, args.save)
+    save_path = os.path.join(args.outf, args.save)
     sys.stdout = Print_Logger(os.path.join(save_path, 'test_log.txt'))
     device = torch.device("cuda" if torch.cuda.is_available() and args.cuda else "cpu")
 
