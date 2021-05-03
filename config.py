@@ -1,6 +1,6 @@
-#
-# All the configuration information is available here
-#
+#==============================================================================
+# All the configuration information required in the pipeline is available here.
+#==============================================================================
 
 import argparse
 
@@ -51,8 +51,10 @@ def parse_args():
                         help='(path of trained _model) load trained model to continue train')
 
     # testing
-    parser.add_argument('--test_patch_height', default=96)
-    parser.add_argument('--test_patch_width', default=96)
+    #parser.add_argument('--test_patch_height', default=96)
+    #parser.add_argument('--test_patch_width', default=96)
+    parser.add_argument('--test_patch_height', default=64)
+    parser.add_argument('--test_patch_width', default=64)
     parser.add_argument('--stride_height', default=16)
     parser.add_argument('--stride_width', default=16)
 
