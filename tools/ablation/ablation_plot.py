@@ -13,7 +13,7 @@ params = {'legend.fontsize': 13,
          'ytick.labelsize':15} 
 pylab.rcParams.update(params)
 import os
-import torch
+#import torch
 from collections import OrderedDict
 import numpy as np
 
