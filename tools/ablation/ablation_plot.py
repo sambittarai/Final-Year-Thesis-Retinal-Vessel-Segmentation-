@@ -14,14 +14,14 @@ params = {'legend.fontsize': 13,
 pylab.rcParams.update(params)
 import os
 import torch
-from os.path import join
+#from os.path import join
 from collections import OrderedDict
 import numpy as np
 
 result_list = {"d_base":'./experiments/db1_new/result.npy',
                "d_up1":'./experiments/d_up1/result.npy',
                "d_total":'./experiments/d_total/result.npy'}
-save_path = './experiments/Drive_ablation'
+save_path = '/content/drive/MyDrive/Retinal_Vessel_Segmentation/Experiments/Drive_ablation'
 if not os.path.exists(save_path): os.makedirs(save_path)
 
 # ===============AUC ROC===============
