@@ -3,6 +3,9 @@ This project is based on my final year thesis i.e. Retinal Vessel Segmentation u
 
 ## Table of Content
 1. [Requirements](#requirements)
+2. [Introduction](#introduction)
+
+## Introduction: <a name="introduction"></a>
 
 ## Requirements: <a name="requirements"></a>
 It is highly recommended to first try using your current python environment. However, the following environment is successfully able to run the code.
