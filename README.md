@@ -4,6 +4,14 @@ This project is based on my final year thesis i.e. Retinal Vessel Segmentation u
 ## Table of Content
 1. [Requirements](#requirements)
 2. [Introduction](#introduction)
+3. [Dataset Preparation](#dataset)
+4. [Configuration](#config)
+5. [Model Architecture](#model)
+6. [Training](#training)
+7. [Testing](#testing)
+8. [Visualization](#visualization)
+9. [Performance Metrics](#performance)
+10. [Conclusion](#conclusion)
 
 ## Introduction: <a name="introduction"></a>
 
