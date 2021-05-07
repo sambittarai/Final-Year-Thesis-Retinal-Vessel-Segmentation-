@@ -2,8 +2,8 @@
 This project is based on my final year thesis i.e. Retinal Vessel Segmentation using pytorch framework. This repository includes dataset preparation, data processing, training, testing, and visualization.
 
 ## Table of Content
-1. [Requirements](#requirements)
-2. [Introduction](#introduction)
+1. [Introduction](#introduction)
+2. [Requirements](#requirements)
 3. [Dataset Preparation](#dataset)
 4. [Configuration](#config)
 5. [Model Architecture](#model)
