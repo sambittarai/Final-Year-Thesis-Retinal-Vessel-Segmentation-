@@ -4,9 +4,9 @@ This project is based on my final year thesis i.e. Retinal Vessel Segmentation u
 <p align="center">
   <b>Retinal Image:</b> <br>   
   <img src="https://github.com/sambittarai/Final-Year-Thesis-Retinal-Vessel-Segmentation-/blob/main/Readme/Retinal_Image.png">
-  <b>Ground Truth Segmentation:</b> <br>
+  <b>Ground Truth Segmentation:</b>
   <img src="https://github.com/sambittarai/Final-Year-Thesis-Retinal-Vessel-Segmentation-/blob/main/Readme/Segmentation_GT.png">
-  <b>Predicted Segmentation Mask:</b> <br>
+  <b>Predicted Segmentation Mask:</b>
   <img src="https://github.com/sambittarai/Final-Year-Thesis-Retinal-Vessel-Segmentation-/blob/main/Readme/Segmentation_Prediction.png">
 </p>
 
