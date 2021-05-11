@@ -1,0 +1,3 @@
+The computing device used is:  GPU
+Total number of parameters: 34525954
+Architecture of Model have saved in Tensorboard!
