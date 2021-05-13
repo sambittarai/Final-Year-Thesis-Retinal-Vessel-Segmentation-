@@ -48,7 +48,7 @@ Libraries                 Version
 
 ### Sample Patches
 
-![](Experiments/sample_input_imgs.png) ![](Images/sample_input_masks.png)
+![](Experiments/sample_input_imgs.png) ![](Experiments/sample_input_masks.png)
 
 ## 4. Configuration: <a name="config"></a>
 
