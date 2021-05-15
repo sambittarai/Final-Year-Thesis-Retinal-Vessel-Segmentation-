@@ -41,8 +41,7 @@ Libraries                 Version
 7.  matplotlib             3.2.2
 8.  opencv                 4.1.2
 9.  numpy                  1.19.5
-10. pandas                 1.1.5
-11. sklearn                0.22.2  
+10. sklearn                0.22.2  
 ```
 
 
