@@ -35,13 +35,12 @@ Libraries                 Version
 1.  python                 >= 3.5
 2.  torch                  1.8.1
 3.  torchvision            0.9.1
-4.  cudnn
-5.  tensorboardX           2.2
-6.  argparse               1.1
-7.  pandas                 1.1.5
-8.  matplotlib             3.2.2
-9.  opencv                 4.1.2
-10. numpy                  1.19.5
+4.  tensorboardX           2.2
+5.  argparse               1.1
+6.  pandas                 1.1.5
+7.  matplotlib             3.2.2
+8.  opencv                 4.1.2
+9. numpy                  1.19.5
 ```
 
 
