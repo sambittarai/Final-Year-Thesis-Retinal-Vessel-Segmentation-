@@ -23,6 +23,8 @@ This project is based on my final year thesis i.e. Retinal Vessel Segmentation u
 10. [Conclusion](#conclusion)
 
 ## 1. Introduction: <a name="introduction"></a>
+Many severe eye-related disorders such as diabetic retinopathy, glaucoma, macular degeneration, etc are directly associated with the network of blood vessels present in the eyes. Hence, the study of these blood vessels can play a very crucial role during the diagnosis of diseases. The current clinical protocol of diagnosis includes manual inspection of fundus images by an ophthalmologist in order to extract relevant information and to look for pathologies. This process is extremely time-consuming and requires a lot of domain expertise. Computer-assisted diagnostic systems have shown promising results in the past in many related fields in Healthcare. Therefore, the primary goal of this project is to develop a Computer-Aided Diagnostic System using Deep Learning, which is capable of segmenting the blood vessels from the retinal fundus image, which can then be used by clinicians for follow-up diagnosis.
+
 
 ## 2. Requirements: <a name="requirements"></a>
 It is highly recommended to first try using your current python environment. However, the following environment is successfully able to run the code.
