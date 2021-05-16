@@ -14,8 +14,8 @@ This project is based on my final year thesis i.e. Retinal Vessel Segmentation u
 1. [Introduction](#introduction)
 2. [Requirements](#requirements)
 3. [Getting Started](#getting_started)
-4. [Dataset Preparation](#dataset)
-5. [Configuration](#config)
+4. [Configuration](#config)
+5. [Dataset Preparation](#dataset)
 6. [Model Architecture](#model)
 7. [Training](#training)
 8. [Testing](#testing)
@@ -93,14 +93,19 @@ Final-Year-Thesis-Retinal-Vessel-Segmentation       # Source code
             ├── preprocessing_visualization.ipynb
 ```
 
-## 4. Dataset Preparation: <a name="dataset"></a>
+## 4. Configuration: <a name="config"></a>
+
+```
+from config import parse_args
+
+```
+
+## 5. Dataset Preparation: <a name="dataset"></a>
 * A total of 5 different publicly available retinal image datasets were used for experimentation purpose. Please download the datasets from the following official address: [DRIVE](https://drive.grand-challenge.org/), [STARE]( https://cecas.clemson.edu/~ahoover/stare/), [CHASE_DB1]( https://blogs.kingston.ac.uk/retinal/chasedb1/), [DIARET_DB1](http://www.it.lut.fi/project/imageret/diaretdb1/), [HRF]( https://www5.cs.fau.de/research/data/fundus-images/). These datasets consist of the retinal images, its manual segmentation, mask. We also used some proprietary dataset.
 
 ### Sample Patches
 
 ![](Experiments/sample_input_imgs.png) ![](Experiments/sample_input_masks.png)
-
-## 5. Configuration: <a name="config"></a>
 
 ## 6. Model Architecture: <a name="model"></a>
 * LadderNet
