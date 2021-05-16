@@ -76,6 +76,8 @@ Final-Year-Thesis-Retinal-Vessel-Segmentation       # Source code
 ## 5. Configuration: <a name="config"></a>
 
 ## 6. Model Architecture: <a name="model"></a>
+* LadderNet
+<img src="https://github.com/sambittarai/Final-Year-Thesis-Retinal-Vessel-Segmentation-/blob/main/Readme/LadderNet.png">
 
 ## 7. Training: <a name="training"></a>
 * Update the config.py file according to your requirement and then run train.py file. 
