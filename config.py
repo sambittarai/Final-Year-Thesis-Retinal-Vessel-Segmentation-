@@ -51,8 +51,6 @@ def parse_args():
                         help='(path of trained _model) load trained model to continue train')
 
     # testing
-    #parser.add_argument('--test_patch_height', default=96)
-    #parser.add_argument('--test_patch_width', default=96)
     parser.add_argument('--test_patch_height', default=64)
     parser.add_argument('--test_patch_width', default=64)
     parser.add_argument('--stride_height', default=16)
