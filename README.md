@@ -63,7 +63,34 @@ Final-Year-Thesis-Retinal-Vessel-Segmentation       # Source code
     ├── requirements.txt      # requirements
     ├── train.py      # training pipeline
     ├── test.py       # testing pipeline
-
+    ├── Experiments
+    ├── libraries
+        ├── common.py
+        ├── dataset.py
+        ├── extract_patches.py
+        ├── logger.py
+        ├── metrics.py
+        ├── pre_process.py
+        ├── visualize.py
+        ├── losses
+            ├── loss.py
+            ├── diff_loss_functions.py
+    ├── models
+        ├── DenseUnet.py
+        ├── LadderNet.py
+        ├── UNetFamily.py
+    ├── prepare_dataset
+        ├── data_path_list
+        ├── chase_db1.py
+        ├── drive.py
+        ├── stare.py
+    ├── tools
+        ├── ablation
+            ├── ablation_plot.py
+            ├── ablation_plot_with_detail.py
+        ├── visualization
+            ├── preprocess_visualization.py
+            ├── preprocessing_visualization.ipynb
 ```
 
 ## 4. Dataset Preparation: <a name="dataset"></a>
