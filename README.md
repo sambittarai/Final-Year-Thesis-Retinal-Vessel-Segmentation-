@@ -13,14 +13,15 @@ This project is based on my final year thesis i.e. Retinal Vessel Segmentation u
 ## Table of Content
 1. [Introduction](#introduction)
 2. [Requirements](#requirements)
-3. [Dataset Preparation](#dataset)
-4. [Configuration](#config)
-5. [Model Architecture](#model)
-6. [Training](#training)
-7. [Testing](#testing)
-8. [Visualization](#visualization)
-9. [Performance Metrics](#performance)
-10. [Conclusion](#conclusion)
+3. [Getting Started] (#getting_started)
+4. [Dataset Preparation](#dataset)
+5. [Configuration](#config)
+6. [Model Architecture](#model)
+7. [Training](#training)
+8. [Testing](#testing)
+9. [Visualization](#visualization)
+10. [Performance Metrics](#performance)
+11. [Conclusion](#conclusion)
 
 ## 1. Introduction: <a name="introduction"></a>
 Many severe eye-related disorders such as diabetic retinopathy, glaucoma, macular degeneration, etc are directly associated with the network of blood vessels present in the eyes. Hence, the study of these blood vessels can play a very crucial role during the diagnosis of diseases. The current clinical protocol of diagnosis includes manual inspection of fundus images by an ophthalmologist in order to extract relevant information and to look for pathologies. This process is extremely time-consuming and requires a lot of domain expertise. Computer-assisted diagnostic systems have shown promising results in the past in many related fields in Healthcare. Therefore, the primary goal of this project is to develop a Computer-Aided Diagnostic System using Deep Learning, which is capable of segmenting the blood vessels from the retinal fundus image, which can then be used by clinicians for follow-up diagnosis.
@@ -45,25 +46,27 @@ Libraries                 Version
 ```
 
 
-## 3. Dataset Preparation: <a name="dataset"></a>
+## 3. Getting Started: <a name="getting_started"></a>
+
+## 4. Dataset Preparation: <a name="dataset"></a>
 * A total of 5 different publicly available retinal image datasets were used for experimentation purpose. Please download the datasets from the following official address: [DRIVE](https://drive.grand-challenge.org/), [STARE]( https://cecas.clemson.edu/~ahoover/stare/), [CHASE_DB1]( https://blogs.kingston.ac.uk/retinal/chasedb1/), [DIARET_DB1](http://www.it.lut.fi/project/imageret/diaretdb1/), [HRF]( https://www5.cs.fau.de/research/data/fundus-images/). These datasets consist of the retinal images, its manual segmentation, mask. We also used some proprietary dataset.
 
 ### Sample Patches
 
 ![](Experiments/sample_input_imgs.png) ![](Experiments/sample_input_masks.png)
 
-## 4. Configuration: <a name="config"></a>
+## 5. Configuration: <a name="config"></a>
 
-## 5. Model Architecture: <a name="model"></a>
+## 6. Model Architecture: <a name="model"></a>
 
-## 6. Training: <a name="training"></a>
+## 7. Training: <a name="training"></a>
 * Update the config.py file according to your requirement and then run train.py file. 
 
 
-## 7. Testing: <a name="testing"></a>
+## 8. Testing: <a name="testing"></a>
 
-## 8. Visualization: <a name="visualization"></a>
+## 9. Visualization: <a name="visualization"></a>
 
-## 9. Performance Metrics: <a name="performance"></a>
+## 10. Performance Metrics: <a name="performance"></a>
 
-## 10. Conclusion: <a name="conclusion"></a>
+## 11. Conclusion: <a name="conclusion"></a>
