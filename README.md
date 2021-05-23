@@ -121,4 +121,10 @@ from config import parse_args
 
 ## 10. Performance Metrics: <a name="performance"></a>
 
+* Precision-Recall Curve
+<img src="https://github.com/sambittarai/Final-Year-Thesis-Retinal-Vessel-Segmentation-/blob/main/Experiments/Precision_recall.png">
+
+* ROC Curve
+<img src="https://github.com/sambittarai/Final-Year-Thesis-Retinal-Vessel-Segmentation-/blob/main/Experiments/ROC.png">
+
 ## 11. Conclusion: <a name="conclusion"></a>
