@@ -2,7 +2,7 @@
 This project is based on my final year thesis i.e. Retinal Vessel Segmentation using pytorch framework. This repository includes dataset preparation, data processing, training, testing, and visualization.
 
 <p align="center">
-  <b>............Retinal Image...............</b> <b>    Ground Truth Segmentation:</b> <b>    Predicted Segmentation Mask:</b> <br>   
+  <b>................Retinal Image.............</b> <b>    Ground Truth Segmentation:</b> <b>    Predicted Segmentation Mask:</b> <br>   
   <img src="https://github.com/sambittarai/Final-Year-Thesis-Retinal-Vessel-Segmentation-/blob/main/Readme/Retinal_Image.png" height=200 width=200>
   <img src="https://github.com/sambittarai/Final-Year-Thesis-Retinal-Vessel-Segmentation-/blob/main/Readme/Segmentation_GT.png" height=200 width=200>
   <img src="https://github.com/sambittarai/Final-Year-Thesis-Retinal-Vessel-Segmentation-/blob/main/Readme/Segmentation_Prediction.png" height=200 width=200>
