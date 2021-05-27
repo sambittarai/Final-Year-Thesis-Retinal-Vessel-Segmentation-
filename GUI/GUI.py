@@ -13,12 +13,16 @@ import numpy as np
 from dataset import TestDataset
 from torch.utils.data import DataLoader
 from tqdm import tqdm
-from pre_process import my_PreProc
+from pre_process_1 import my_PreProc
+from pre_process_2 import clahe_rgb
 from tkinter import *
 from tkinter import filedialog
 import tkinter as tk
 from PIL import Image, ImageTk, ImageOps
-
+from fractal_dimension import fractal_dimension
+import tkinter.font as font
+import cv2
+# progressbar - batch_idx
 
 class Test():
 	def __init__(self, args, test_img_path):
@@ -78,10 +82,8 @@ def run():
 
 def predict(test_img_path, args):
 	#device
-	#device = torch.device("cuda" if torch.cuda.is_available() and True else "cpu") #device = cpu
 	device = torch.device("cuda" if torch.cuda.is_available() and args.cuda else "cpu") #device = cpu
 	#Model Architecture
-	#net = UNetFamily.U_Net(1,2).to(device)
 	net = UNetFamily.U_Net(args.in_channels, args.classes).to(device)
 	cudnn.benchmark = True
 	# Load checkpoint
@@ -104,7 +106,7 @@ def show_image():
 	label_1.configure(image=img)
 	label_1.image = img
 
-def show_preprocess():
+def show_preprocess_1():
 	test_imgs = load_data(path)
 	test_imgs = my_PreProc(test_imgs)
 	test_imgs = test_imgs * 255.
@@ -116,9 +118,31 @@ def show_preprocess():
 	label_2.configure(image=test_imgs)
 	label_2.image = test_imgs
 
+def show_preprocess_2():
+	test_imgs = clahe_rgb(path, cliplimit=4, tilesize=16)
+	#test_imgs = test_imgs * 255.
+	test_imgs = Image.fromarray(test_imgs)
+	test_imgs.thumbnail((300, 300))
+	test_imgs = ImageTk.PhotoImage(test_imgs)
+	label_6.configure(image=test_imgs)
+	label_6.image = test_imgs
+
+def calculate_f_d(pred_img_mask):
+	pred_img_mask = pred_img_mask[0,0,:,:]
+	# pred_img_mask = np.where(pred_img_mask > 0, 1, 0)
+	f_d = fractal_dimension(pred_img_mask)
+	return f_d
+
+def show_f_d():
+	label_5.configure(text="Fractal Dimension is: "+str(f_d), font=buttonFont)
+
 def show_segmentation(args):
+	global f_d
 
 	pred_img_mask, pred_img_prob_dist = predict(path, args)
+	pred_img_mask = np.where(pred_img_mask > 0, 1, 0)
+	f_d = calculate_f_d(pred_img_mask)
+
 	pred_img_mask = (255. * pred_img_mask[0,0,:,:]).astype(np.uint8)
 	pred_img_prob_dist = (255. * pred_img_prob_dist[0,0,:,:]).astype(np.uint8)
 
@@ -137,8 +161,11 @@ def show_segmentation(args):
 	label_4.configure(image=pred_img_prob_dist)
 	label_4.image = pred_img_prob_dist
 
+
 root = Tk()
 root.title("Retinal Vessel Segmentation")
+root.configure(bg='#d9fffb')
+root.iconbitmap("G:/IIT_MADRAS_DD/Semesters/10th_sem/DDP_new_topic/My work/Code/Retinal_Vessel_Segmentation/GUI/icon.ico")
 # root.geometry("850x500")
 # root.resizable(False, False)
 args = parse_args()
@@ -149,44 +176,37 @@ background_img = ImageTk.PhotoImage(
 label_1 = Label(root, image=background_img)
 label_1.grid(row=0, column=0, padx=10)
 
-button1 = Button(root, text="Browse Retinal Image", command=show_image)
-button1.grid(row=1, column=0)
+buttonFont = font.Font(family='Helvetica', size=9, weight='bold')
+button1 = Button(root, text="Browse Retinal Image", command=show_image, font=buttonFont)
+button1.grid(row=1, column=0, pady=5)
 
 label_2 = Label(root, image=background_img)
 label_2.grid(row=0, column=1, padx=10)
 
-button2 = Button(root, text="preprocess", command=show_preprocess)
-# button2.grid(row=1, column=1, columnspan=9, padx=10)
-button2.grid(row=1, column=1)
+button2 = Button(root, text="Preprocess 1", command=show_preprocess_1, font=buttonFont)
+button2.grid(row=1, column=1, pady=5)
 
 label_3 = Label(root, image=background_img)
 label_3.grid(row=0, column=2, padx=10)
 
-button3 = Button(root, text="segment", command=lambda: show_segmentation(args))
-button3.grid(row=1, column=2)
+button3 = Button(root, text="Predict Segmentation Mask", command=lambda: show_segmentation(args), font=buttonFont)
+button3.grid(row=1, column=2, pady=5)
 
 label_4 = Label(root, image=background_img)
 label_4.grid(row=0, column=3, padx=10)
 
+label_5 = Label(root, text="")
+label_5.grid(row=2, column=2, padx=10, pady=5)
+
+button5 = Button(root, text="Fractal Dimension", command=show_f_d, font=buttonFont)
+# button5 = Button(root, text="Fractal Dimension", font=buttonFont)
+button5.grid(row=2, column=1, pady=5)
+
+label_6 = Label(root, image=background_img)
+label_6.grid(row=2, column=0, padx=10, pady=5)
+
+button6 = Button(root, text="Preprocess 2", command=show_preprocess_2, font=buttonFont)
+button6.grid(row=3, column=0, pady=5)
+
 root.mainloop()
 
-'''
-if __name__ == '__main__':
-	# run()
-	test_img_path = "G:/IIT_MADRAS_DD/Semesters/10th_sem/DDP_new_topic/My work/Code/Retinal_Vessel_Segmentation/Datasets/CHASEDB/testing/images/Image_13L.jpg"
-	# test_img_path = "G:/IIT_MADRAS_DD/Semesters/10th_sem/DDP_new_topic/My work/Code/Retinal_Vessel_Segmentation/Datasets/DRIVE/test/images/18_test.tif"
-	#test_mask_path = "G:/IIT_MADRAS_DD/Semesters/10th_sem/DDP_new_topic/My work/Code/Retinal_Vessel_Segmentation/Datasets/DRIVE/test/1st_manual/18_manual1.gif"
-
-	args = parse_args()
-	pred_img_mask, pred_img_prob_dist = predict(test_img_path, args)
-
-	# im = (255. * pred_img_prob_dist[0,0,:,:]).astype(np.uint8)
-	# im = np.where(im >= np.max(im)/4, 255, 0)
-	# im = Image.fromarray(im).convert('RGB')
-	# im.save("G:/IIT_MADRAS_DD/Semesters/10th_sem/DDP_new_topic/My work/Code/Retinal_Vessel_Segmentation/GUI/Image_Predictions/CHASEDB/13L/pred_prob_dist_13L.png")
-	# dice = np.sum(2.0*pred2_bin*img) / (np.sum(pred2_bin) + np.sum(img))
-'''
-
-# m = (10*6 + 9*7 + 3*9 + 10*7 + 7*7 + 10*6) + (9*7 + 6*9 + 12*7 + 10*6 + 10*7 + 4*7) + (3*9 + 3*8) + 6*8 + 15*7 + 6*4 + 13*9 + 12*7 + 9*8 + 9*9 + 12*8 + 15*8 + 15*8 + 9*8 + 9*8 + 9*8 + 12*7 + 10*8 + 9*8 + 9*8 + 9*8 + 10*6 + 10*8 + 9*6 + 3*9 + 12*6 + 9*6 + 40*9 + 9*7
-# n = 49 + 51 + 6 + 61 + 60 + 58 + 62 + 40 + 9
-# m/n
