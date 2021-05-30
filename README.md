@@ -124,6 +124,12 @@ from config import parse_args
 
 <img src="https://github.com/sambittarai/Final-Year-Thesis-Retinal-Vessel-Segmentation-/blob/main/Readme/IDRiD_04/IDRiD_04_mask.jpg" width="300" height="200"> <img src="https://github.com/sambittarai/Final-Year-Thesis-Retinal-Vessel-Segmentation-/blob/main/Readme/IDRiD_04/IDRiD_04_combined.jpg" width="300" height="200">
 
+* Patient 2
+
+<img src="https://github.com/sambittarai/Final-Year-Thesis-Retinal-Vessel-Segmentation-/blob/main/Readme/IDRiD_10/IDRiD_10.jpg" width="300" height="200"> <img src="https://github.com/sambittarai/Final-Year-Thesis-Retinal-Vessel-Segmentation-/blob/main/Readme/IDRiD_10/IDRiD_10_preprocessed.jpg" width="300" height="200">
+
+<img src="https://github.com/sambittarai/Final-Year-Thesis-Retinal-Vessel-Segmentation-/blob/main/Readme/IDRiD_10/IDRiD_10_mask.jpg" width="300" height="200"> <img src="https://github.com/sambittarai/Final-Year-Thesis-Retinal-Vessel-Segmentation-/blob/main/Readme/IDRiD_10/IDRiD_10_combined.jpg" width="300" height="200">
+
 ## 10. Performance Metrics: <a name="performance"></a>
 
 * Precision-Recall Curve
