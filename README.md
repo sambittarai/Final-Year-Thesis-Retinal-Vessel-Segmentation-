@@ -120,7 +120,7 @@ from config import parse_args
 ## 9. Visualization: <a name="visualization"></a>
 
 * Patient 1
-<img src="https://github.com/sambittarai/Final-Year-Thesis-Retinal-Vessel-Segmentation-/blob/main/Readme/DRIVE_18/18_test.tif">
+<img src="https://github.com/sambittarai/Final-Year-Thesis-Retinal-Vessel-Segmentation-/blob/main/Readme/IDRiD_04/IDRiD_04.jpg">
 
 ## 10. Performance Metrics: <a name="performance"></a>
 
