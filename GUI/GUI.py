@@ -127,6 +127,9 @@ def show_preprocess_2():
 	label_6.configure(image=test_imgs)
 	label_6.image = test_imgs
 
+def show_combined():
+	return
+
 def calculate_f_d(pred_img_mask):
 	pred_img_mask = pred_img_mask[0,0,:,:]
 	# pred_img_mask = np.where(pred_img_mask > 0, 1, 0)
@@ -208,5 +211,34 @@ label_6.grid(row=2, column=0, padx=10, pady=5)
 button6 = Button(root, text="Preprocess 2", command=show_preprocess_2, font=buttonFont)
 button6.grid(row=3, column=0, pady=5)
 
+label_7 = Label(root, image=background_img)
+label_7.grid(row=2, column=3, padx=10, pady=5)
+
+button6 = Button(root, text="Display Overlap Image", command=show_combined, font=buttonFont)
+button6.grid(row=3, column=3, pady=5)
+
 root.mainloop()
 
+'''
+if __name__ == '__main__':
+	# run()
+	# test_img_path = "G:/IIT_MADRAS_DD/Semesters/10th_sem/DDP_new_topic/My work/Code/Retinal_Vessel_Segmentation/Datasets/CHASEDB/testing/images/Image_13L.jpg"
+	test_img_path = "G:/IIT_MADRAS_DD/Semesters/10th_sem/DDP_new_topic/My work/Code/Retinal_Vessel_Segmentation/Datasets/DRIVE/test/images/18_test.tif"
+	#test_mask_path = "G:/IIT_MADRAS_DD/Semesters/10th_sem/DDP_new_topic/My work/Code/Retinal_Vessel_Segmentation/Datasets/DRIVE/test/1st_manual/18_manual1.gif"
+
+	args = parse_args()
+	pred_img_mask, pred_img_prob_dist = predict(test_img_path, args)
+
+	# im = (255. * pred_img_prob_dist[0,0,:,:]).astype(np.uint8)
+	# im = np.where(im >= np.max(im)/4, 255, 0)
+	# im = Image.fromarray(im).convert('RGB')
+	# im.save("G:/IIT_MADRAS_DD/Semesters/10th_sem/DDP_new_topic/My work/Code/Retinal_Vessel_Segmentation/GUI/Image_Predictions/CHASEDB/13L/pred_prob_dist_13L.png")
+	# dice = np.sum(2.0*pred2_bin*img) / (np.sum(pred2_bin) + np.sum(img))
+'''
+
+# m = (10*6 + 9*7 + 3*9 + 10*7 + 7*7 + 10*6) + (9*7 + 6*9 + 12*7 + 10*6 + 10*7 + 4*7) + (3*9 + 3*8) + 6*8 + 15*7 + 6*4 + 13*9 + 12*7 + 9*8 + 9*9 + 12*8 + 15*8 + 15*8 + 9*8 + 9*8 + 9*8 + 12*7 + 10*8 + 9*8 + 9*8 + 9*8 + 10*6 + 10*8 + 9*6 + 3*9 + 12*6 + 9*6 + 40*9 + 9*7
+# n = 49 + 51 + 6 + 61 + 60 + 58 + 62 + 40 + 9
+# m/n
+
+
+# add a save button (next to browse button).
