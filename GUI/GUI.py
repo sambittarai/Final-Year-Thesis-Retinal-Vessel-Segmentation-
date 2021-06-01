@@ -171,7 +171,6 @@ def show_combined_image():
 
 def calculate_f_d(pred_img_mask):
 	pred_img_mask = pred_img_mask[0,0,:,:]
-	# pred_img_mask = np.where(pred_img_mask > 0, 1, 0)
 	f_d = fractal_dimension(pred_img_mask)
 	return f_d
 
