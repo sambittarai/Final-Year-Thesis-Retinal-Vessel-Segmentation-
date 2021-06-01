@@ -8,7 +8,6 @@ import random
 from pre_process import my_PreProc
 from PIL import Image
 
-
 def load_data(test_img_path):
     '''
     Load the original image, grroundtruth and FOV of the data set in order, and check the dimensions
@@ -19,7 +18,6 @@ def load_data(test_img_path):
     img = np.transpose(img,(0,3,1,2))
     # img is of size (1, 3, H, W), (1, 1, H, W) with np.min = 0, np.max = 255
     return img
-
 
 # =============================Load test data==========================================
 def get_data_test_overlap(test_img_path, patch_height, patch_width, stride_height, stride_width):
@@ -56,7 +54,6 @@ def paint_border_overlap(full_imgs, patch_h, patch_w, stride_h, stride_w):
         tmp_full_imgs = np.zeros((full_imgs.shape[0],full_imgs.shape[1],full_imgs.shape[2],img_w+(stride_w - leftover_w)))
         tmp_full_imgs[0:full_imgs.shape[0],0:full_imgs.shape[1],0:full_imgs.shape[2],0:img_w] = full_imgs
         full_imgs = tmp_full_imgs
-
     #print("new padded images shape: " +str(full_imgs.shape))
     return full_imgs
 
