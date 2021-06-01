@@ -1,7 +1,6 @@
 #=================================================================================================================================================
 # This is an application which takes a single retinal image at a time and displays its preprocessed image and segmentation mask in the GUI viewer.
 #=================================================================================================================================================
-
 import torch
 from models import UNetFamily
 import torch.backends.cudnn as cudnn
@@ -22,14 +21,12 @@ from PIL import Image, ImageTk, ImageOps
 from fractal_dimension import fractal_dimension
 import tkinter.font as font
 import cv2
-# progressbar - batch_idx
 
 class Test():
 	def __init__(self, args, test_img_path):
 		self.args = args
 		self.test_img_path = test_img_path
 		assert (args.stride_height <= args.test_patch_height and args.stride_width <= args.test_patch_width)
-
 		#Extract Patches
 		self.patches_imgs_test, self.test_imgs, self.new_height, self.new_width = get_data_test_overlap(
 			test_img_path=test_img_path,
@@ -40,7 +37,6 @@ class Test():
 			)
 		self.img_height =self.test_imgs.shape[2]
 		self.img_width =self.test_imgs.shape[3]
-
 		test_set = TestDataset(self.patches_imgs_test)
 		self.test_loader = DataLoader(test_set, batch_size=args.batch_size, shuffle=False, num_workers=0)
 
@@ -60,22 +56,16 @@ class Test():
 		predictions_prob_dist = np.concatenate(preds_prob_dist, axis=0)
 		self.pred_patches_mask = np.expand_dims(predictions_mask,axis=1)
 		self.pred_patches_prob = np.expand_dims(predictions_prob_dist,axis=1)
-
 		return self.pred_patches_mask, self.pred_patches_prob
 
 	def evaluate(self):
 		self.pred_imgs_mask = recompone_overlap(
 			self.pred_patches_mask, self.new_height, self.new_width, self.args.stride_height, self.args.stride_width)
-
 		self.pred_imgs_mask = self.pred_imgs_mask[:, :, 0:self.img_height, 0:self.img_width]
-
 		self.pred_imgs_prob_dist = recompone_overlap(
 			self.pred_patches_prob, self.new_height, self.new_width, self.args.stride_height, self.args.stride_width)
-
 		self.pred_imgs_prob_dist = self.pred_imgs_prob_dist[:, :, 0:self.img_height, 0:self.img_width]
-
 		return self.pred_imgs_mask, self.pred_imgs_prob_dist
-
 
 def run():
 	torch.multiprocessing.freeze_support()
@@ -89,11 +79,9 @@ def predict(test_img_path, args):
 	# Load checkpoint
 	checkpoint = torch.load(args.best_model_path, map_location=device)
 	net.load_state_dict(checkpoint['net'])
-
 	eval = Test(args, test_img_path)
 	pred_patches_mask, pred_patches_prob_dist = eval.inference(net)
 	pred_img_mask, pred_img_prob_dist = eval.evaluate()
-
 	return pred_img_mask, pred_img_prob_dist
 
 def show_image():
@@ -121,7 +109,6 @@ def show_preprocess_2():
 	global test_imgs_preprocessed
 	test_imgs_preprocessed = clahe_rgb(path, cliplimit=4, tilesize=16)
 	test_imgs_preprocessed = Image.fromarray(test_imgs_preprocessed)
-
 	test_imgs = clahe_rgb(path, cliplimit=4, tilesize=16)
 	#test_imgs = test_imgs * 255.
 	test_imgs = Image.fromarray(test_imgs)
@@ -131,10 +118,6 @@ def show_preprocess_2():
 	label_6.image = test_imgs
 
 def show_combined_image():
-	# test_imgs_preprocessed - numpy array
-	# probability_distribution - numpy array
-	# Resize the data later
-
 	img = test_imgs_preprocessed
 	img = img.resize((int(img.size[0]/2), int(img.size[1]/2))) # comment it out if high resolution images are not being used
 	img = np.asarray(img)
@@ -198,151 +181,73 @@ def show_f_d():
 def show_segmentation(args):
 	global f_d
 	global probability_distribution
-
 	pred_img_mask, pred_img_prob_dist = predict(path, args)
 	probability_distribution = pred_img_prob_dist
-
 	pred_img_mask = np.where(pred_img_mask > 0, 1, 0)
 	f_d = calculate_f_d(pred_img_mask)
-
 	pred_img_mask = (255. * pred_img_mask[0,0,:,:]).astype(np.uint8)
 	pred_img_prob_dist = (255. * pred_img_prob_dist[0,0,:,:]).astype(np.uint8)
-
 	pred_img_mask = Image.fromarray(pred_img_mask).convert('RGB')
 	pred_img_prob_dist = Image.fromarray(pred_img_prob_dist).convert('RGB')
-
 	pred_img_mask.thumbnail((300, 300))
 	pred_img_prob_dist.thumbnail((300, 300))
-
 	pred_img_mask = ImageTk.PhotoImage(pred_img_mask)
 	pred_img_prob_dist = ImageTk.PhotoImage(pred_img_prob_dist)
-
 	label_3.configure(image=pred_img_mask)
 	label_3.image = pred_img_mask
-
 	label_4.configure(image=pred_img_prob_dist)
 	label_4.image = pred_img_prob_dist
 
+root = Tk()
+root.title("Retinal Vessel Segmentation")
+root.configure(bg='#d9fffb')
+root.iconbitmap("G:/IIT_MADRAS_DD/Semesters/10th_sem/DDP_new_topic/My work/Code/Retinal_Vessel_Segmentation/GUI/icon.ico")
+# root.geometry("850x500")
+# root.resizable(False, False)
+args = parse_args()
 
-# root = Tk()
-# root.title("Retinal Vessel Segmentation")
-# root.configure(bg='#d9fffb')
-# root.iconbitmap("G:/IIT_MADRAS_DD/Semesters/10th_sem/DDP_new_topic/My work/Code/Retinal_Vessel_Segmentation/GUI/icon.ico")
-# # root.geometry("850x500")
-# # root.resizable(False, False)
-# args = parse_args()
+background_img = ImageTk.PhotoImage(
+	Image.open("G:/IIT_MADRAS_DD/Semesters/10th_sem/DDP_new_topic/My work/Code/Retinal_Vessel_Segmentation/GUI/background_image.gif").resize((300, 300)))
 
-# background_img = ImageTk.PhotoImage(
-# 	Image.open("G:/IIT_MADRAS_DD/Semesters/10th_sem/DDP_new_topic/My work/Code/Retinal_Vessel_Segmentation/GUI/background_image.gif").resize((300, 300)))
+label_1 = Label(root, image=background_img)
+label_1.grid(row=0, column=0, padx=10)
 
-# label_1 = Label(root, image=background_img)
-# label_1.grid(row=0, column=0, padx=10)
+buttonFont = font.Font(family='Helvetica', size=9, weight='bold')
+button1 = Button(root, text="Browse Retinal Image", command=show_image, font=buttonFont)
+button1.grid(row=1, column=0, pady=5)
 
-# buttonFont = font.Font(family='Helvetica', size=9, weight='bold')
-# button1 = Button(root, text="Browse Retinal Image", command=show_image, font=buttonFont)
-# button1.grid(row=1, column=0, pady=5)
+label_2 = Label(root, image=background_img)
+label_2.grid(row=0, column=1, padx=10)
 
-# label_2 = Label(root, image=background_img)
-# label_2.grid(row=0, column=1, padx=10)
+button2 = Button(root, text="Preprocess 1", command=show_preprocess_1, font=buttonFont)
+button2.grid(row=1, column=1, pady=5)
 
-# button2 = Button(root, text="Preprocess 1", command=show_preprocess_1, font=buttonFont)
-# button2.grid(row=1, column=1, pady=5)
+label_3 = Label(root, image=background_img)
+label_3.grid(row=0, column=2, padx=10)
 
-# label_3 = Label(root, image=background_img)
-# label_3.grid(row=0, column=2, padx=10)
+button3 = Button(root, text="Predict Segmentation Mask", command=lambda: show_segmentation(args), font=buttonFont)
+button3.grid(row=1, column=2, pady=5)
 
-# button3 = Button(root, text="Predict Segmentation Mask", command=lambda: show_segmentation(args), font=buttonFont)
-# button3.grid(row=1, column=2, pady=5)
+label_4 = Label(root, image=background_img)
+label_4.grid(row=0, column=3, padx=10)
 
-# label_4 = Label(root, image=background_img)
-# label_4.grid(row=0, column=3, padx=10)
+label_5 = Label(root, text="")
+label_5.grid(row=2, column=2, padx=10, pady=5)
 
-# label_5 = Label(root, text="")
-# label_5.grid(row=2, column=2, padx=10, pady=5)
+button5 = Button(root, text="Fractal Dimension", command=show_f_d, font=buttonFont)
+# button5 = Button(root, text="Fractal Dimension", font=buttonFont)
+button5.grid(row=2, column=1, pady=5)
 
-# button5 = Button(root, text="Fractal Dimension", command=show_f_d, font=buttonFont)
-# # button5 = Button(root, text="Fractal Dimension", font=buttonFont)
-# button5.grid(row=2, column=1, pady=5)
+label_6 = Label(root, image=background_img)
+label_6.grid(row=2, column=0, padx=10, pady=5)
 
-# label_6 = Label(root, image=background_img)
-# label_6.grid(row=2, column=0, padx=10, pady=5)
+button6 = Button(root, text="Preprocess 2", command=show_preprocess_2, font=buttonFont)
+button6.grid(row=3, column=0, pady=5)
 
-# button6 = Button(root, text="Preprocess 2", command=show_preprocess_2, font=buttonFont)
-# button6.grid(row=3, column=0, pady=5)
+label_7 = Label(root, image=background_img)
+label_7.grid(row=2, column=3, padx=10, pady=5)
 
-# label_7 = Label(root, image=background_img)
-# label_7.grid(row=2, column=3, padx=10, pady=5)
+button7 = Button(root, text="Display Overlap Image", command=show_combined_image, font=buttonFont)
+button7.grid(row=3, column=3, pady=5)
 
-# button7 = Button(root, text="Display Overlap Image", command=show_combined_image, font=buttonFont)
-# button7.grid(row=3, column=3, pady=5)
-
-# root.mainloop()
-
-
-if __name__ == '__main__':
-	# run()
-	test_img_path = "G:/Retinal Data/Predictions/IDRiD_49/IDRiD_49.jpg"
-	args = parse_args()
-	pred_img_mask, pred_img_prob_dist = predict(test_img_path, args)
-
-	test_imgs_preprocessed = clahe_rgb(test_img_path, cliplimit=4, tilesize=16)
-	img = test_imgs_preprocessed
-	img = img.resize((int(img.size[0]/2), int(img.size[1]/2)))
-	img = np.asarray(img)
-	probability_distribution = pred_img_prob_dist
-
-	th1 = 0.9
-	th2 = 0.7
-	th3 = 0.1
-
-	probability_distribution_th1 = np.where(probability_distribution >= th1, 1, 0)
-	probability_distribution_th2 = np.where((probability_distribution >= th2) & (probability_distribution < th1), 1, 0)
-	probability_distribution_th3 = np.where((probability_distribution > th3) & (probability_distribution < th2), 1, 0)
-
-	pred_th1, pred_th2, pred_th3 = probability_distribution_th1[0,0], probability_distribution_th2[0,0], probability_distribution_th3[0,0]
-	pred_th1 = np.where(pred_th1 == 0, 1, 0)
-	pred_th2 = np.where(pred_th2 == 0, 1, 0)
-	pred_th3 = np.where(pred_th3 == 0, 1, 0)
-
-	q = np.zeros((1424, 2144, 3))
-
-	q[:,:,0] = img[:,:,0] * pred_th1
-	q[:,:,1] = img[:,:,1] * pred_th1
-	q[:,:,2] = img[:,:,2] * pred_th1
-
-	pred_th1_new = np.where(pred_th1 == 0, 255, 0)
-	q[:,:,0] = q[:,:,0] + pred_th1_new
-
-	q[:,:,0] = q[:,:,0] * pred_th2 
-	q[:,:,1] = q[:,:,1] * pred_th2
-	q[:,:,2] = q[:,:,2] * pred_th2 
-
-	pred_th2_new = np.where(pred_th2 == 0, 255, 0)
-	q[:,:,1] = q[:,:,1] + pred_th2_new
-
-	q[:,:,0] = q[:,:,0] * pred_th3
-	q[:,:,1] = q[:,:,1] * pred_th3
-	q[:,:,2] = q[:,:,2] * pred_th3
-
-	pred_th3_new = np.where(pred_th3 == 0, 255, 0)
-	q[:,:,0] = q[:,:,0] + pred_th3_new
-	q[:,:,1] = q[:,:,1] + pred_th3_new
-
-	im = q.astype(np.uint8)
-	im = Image.fromarray(im)
-	im = im.resize((4288, 2848))
-
-
-	# im = (255. * pred_img_prob_dist[0,0,:,:]).astype(np.uint8)
-	# im = np.where(im >= np.max(im)/4, 255, 0)
-	# im = Image.fromarray(im).convert('RGB')
-	# im.save("G:/IIT_MADRAS_DD/Semesters/10th_sem/DDP_new_topic/My work/Code/Retinal_Vessel_Segmentation/GUI/Image_Predictions/CHASEDB/13L/pred_prob_dist_13L.png")
-	# dice = np.sum(2.0*pred2_bin*img) / (np.sum(pred2_bin) + np.sum(img))
-
-
-# m = (10*6 + 9*7 + 3*9 + 10*7 + 7*7 + 10*6) + (9*7 + 6*9 + 12*7 + 10*6 + 10*7 + 4*7) + (3*9 + 3*8) + 6*8 + 15*7 + 6*4 + 13*9 + 12*7 + 9*8 + 9*9 + 12*8 + 15*8 + 15*8 + 9*8 + 9*8 + 9*8 + 12*7 + 10*8 + 9*8 + 9*8 + 9*8 + 10*6 + 10*8 + 9*6 + 3*9 + 12*6 + 9*6 + 40*9 + 9*7
-# n = 49 + 51 + 6 + 61 + 60 + 58 + 62 + 40 + 9
-# m/n
-
-
-# add a save button (next to browse button).
+root.mainloop()
