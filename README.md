@@ -67,7 +67,7 @@ Final-Year-Thesis-Retinal-Vessel-Segmentation       # Source code
     ├── libraries
         ├── common.py
         ├── dataset.py
-        ├── extract_patches.py
+        ├── extract_patches.py  # Patch Extraction
         ├── logger.py
         ├── metrics.py        # Performance Calculation
         ├── pre_process.py    # Image Preprocessing
@@ -75,11 +75,11 @@ Final-Year-Thesis-Retinal-Vessel-Segmentation       # Source code
         ├── losses            # Loss Function
             ├── loss.py
             ├── diff_loss_functions.py
-    ├── models
+    ├── models                # Deep Learning Architecture
         ├── DenseUnet.py
         ├── LadderNet.py
         ├── UNetFamily.py
-    ├── prepare_dataset
+    ├── prepare_dataset       # Dataset Preparation
         ├── data_path_list
         ├── chase_db1.py
         ├── drive.py
