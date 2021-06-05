@@ -69,10 +69,10 @@ Final-Year-Thesis-Retinal-Vessel-Segmentation       # Source code
         ├── dataset.py
         ├── extract_patches.py
         ├── logger.py
-        ├── metrics.py
-        ├── pre_process.py
+        ├── metrics.py        # Performance Calculation
+        ├── pre_process.py    # Image Preprocessing
         ├── visualize.py
-        ├── losses
+        ├── losses            # Loss Function
             ├── loss.py
             ├── diff_loss_functions.py
     ├── models
